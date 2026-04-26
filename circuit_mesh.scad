@@ -11,7 +11,7 @@
 preset = "custom"; // [1590A, 1590B, 1590BB, 125B, custom]
 
 // Wall thickness of Hammond enclosure — subtract from outer dimensions to get inner space
-// Typical die-cast boxes: 2.5mm per side = 5mm total reduction
+// Default Pedal-Enclosure: 2.5mm per side = 5mm total reduction
 enclosure_wall_thick = 2.5;  // mm — adjust if your enclosure has different wall thickness
 
 // Board footprint — edit these only when preset = "custom":

@@ -8,7 +8,7 @@ A parametric 3D-printable prototyping board for poke-through component mounting.
 
 ## Hammond die-cast enclosure presets
 
-Set the `preset` parameter to size the board footprint automatically for a standard Hammond die-cast enclosure. The board will fit inside the enclosure, accounting for wall thickness. The dimensions below are the *outer* enclosure footprints; `enclosure_wall_thick` (default 2.5mm per side) is automatically subtracted so your board fits with clearance.
+Set the `preset` parameter to size the board footprint automatically for a standard Hammond die-cast enclosure. The board will fit inside the enclosure, accounting for wall thickness. The dimensions below are the *outer* enclosure footprints; `enclosure_wall_thick` (default 1.5mm per side) is automatically subtracted so your board fits with clearance.
 
 | Preset    | L (mm) | W (mm) | H (mm) | Notes                        |
 |-----------|--------|--------|--------|------------------------------|
@@ -18,7 +18,7 @@ Set the `preset` parameter to size the board footprint automatically for a stand
 | `125B`    | 121    |  66    |  39    | Deeper 1590B alternative     |
 | `custom`  | —      |  —     |  —     | Use `custom_board_width` / `custom_board_depth` |
 
-`board_thick` (PCB thickness, default 2.5 mm) and `enclosure_wall_thick` (default 2.5 mm per side) are independent of the preset and should be adjusted separately based on your enclosure and material.
+`board_thick` (PCB thickness, default 2.5 mm) and `enclosure_wall_thick` (default 2.5 mm) are independent of the preset and should be adjusted separately based on your enclosure and material.
 
 ---
 
