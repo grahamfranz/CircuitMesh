@@ -3,28 +3,38 @@
 // ============================================
 
 // --- Hammond die-cast enclosure preset ---
-// Options: "1590A"  (92.5 × 38.5 mm footprint, 31 mm deep)
-//          "1590B"  (112  × 60   mm footprint, 31 mm deep)
-//          "1590BB" (119  × 94   mm footprint, 34 mm deep)
-//          "125B"   (121  × 66   mm footprint, 39 mm deep)
+// Options: "1590A"  (92.5 × 38.5 mm outer, 31 mm deep)
+//          "1590B"  (112  × 60   mm outer, 31 mm deep)
+//          "1590BB" (119  × 94   mm outer, 34 mm deep)
+//          "125B"   (121  × 66   mm outer, 39 mm deep)
 //          "custom" — enter your own dimensions in custom_board_width / custom_board_depth
 preset = "custom"; // [1590A, 1590B, 1590BB, 125B, custom]
+
+// Wall thickness of Hammond enclosure — subtract from outer dimensions to get inner space
+// Typical die-cast boxes: 1.5mm per side = 3mm total reduction
+enclosure_wall_thick = 1.5;  // mm — adjust if your enclosure has different wall thickness
 
 // Board footprint — edit these only when preset = "custom":
 custom_board_width = 80;  // mm
 custom_board_depth = 60;  // mm
 
-board_width = preset == "1590A"  ?  92.5 :
-              preset == "1590B"  ? 112   :
-              preset == "1590BB" ? 119   :
-              preset == "125B"   ? 121   :
-              custom_board_width;
+// Outer dimensions of Hammond boxes (from specifications)
+outer_board_width = preset == "1590A"  ?  92.5 :
+                    preset == "1590B"  ? 112   :
+                    preset == "1590BB" ? 119   :
+                    preset == "125B"   ? 121   :
+                    custom_board_width;
 
-board_depth = preset == "1590A"  ?  38.5 :
-              preset == "1590B"  ?  60   :
-              preset == "1590BB" ?  94   :
-              preset == "125B"   ?  66   :
-              custom_board_depth;
+outer_board_depth = preset == "1590A"  ?  38.5 :
+                    preset == "1590B"  ?  60   :
+                    preset == "1590BB" ?  94   :
+                    preset == "125B"   ?  66   :
+                    custom_board_depth;
+
+// Subtract wall thickness on both sides (2 × wall_thick) to get dimensions that fit inside
+is_custom = preset == "custom";
+board_width = is_custom ? outer_board_width : (outer_board_width - 2*enclosure_wall_thick);
+board_depth = is_custom ? outer_board_depth : (outer_board_depth - 2*enclosure_wall_thick);
 
 // Enclosure interior height — informational reference, not used in board geometry.
 // Tells you how much vertical clearance the chosen Hammond box provides.
@@ -36,12 +46,14 @@ enclosure_height = preset == "1590A"  ? 31 :
 
 board_thick  = 2.5;   // mm — thicker = more grip, harder to insert (2.0mm for lighter builds)
 
-hole_dia     = 0.85;  // mm — tuning per material and printer:
-                      // TPU: 0.85mm | PETG: 1.2–2.0mm | PLA: 0.75–0.85mm
-                      // Larger holes allow lead bending for firm seating
+hole_dia     = 1.2;   // mm — tuning per material and printer:
+                      // TPU: 0.85mm | PETG: 1.2–2.0mm | PLA: 1.0–1.2mm
+                      // Larger holes prevent tight insertion and allow easy lead bending
 pitch        = 2.54;  // mm — standard component pitch, don't change unless needed
 
 margin       = 5;     // mm — border around the hole grid
+
+corner_radius = 5;    // mm — round the board corners to fit rounded Hammond enclosures
 
 // --- Mounting screw holes ---
 add_screw_holes    = true;
@@ -71,8 +83,12 @@ screw_positions = [
 // Build it
 
 difference() {
-    // Base plate
-    cube([board_width, board_depth, board_thick]);
+    // Base plate with rounded corners
+    linear_extrude(board_thick) {
+        offset(r=corner_radius, $fn=20) {
+            square([board_width - 2*corner_radius, board_depth - 2*corner_radius]);
+        }
+    }
 
     // Grid of holes
     for (x = [0 : cols-1]) {
