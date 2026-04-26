@@ -3,18 +3,18 @@
 // ============================================
 
 // --- Hammond die-cast enclosure preset ---
-// Options: "1590A"  (92.5 × 38.5 mm outer, 31 mm deep)
-//          "1590B"  (112  × 60   mm outer, 31 mm deep)
-//          "1590BB" (119  × 94   mm outer, 34 mm deep)
-//          "125B"   (121  × 66   mm outer, 39 mm deep)
-//          "custom" — enter your own dimensions in custom_board_width / custom_board_depth
+// Options: "1590A"  (92.5 x 38.5 mm outer, 31 mm deep)
+//          "1590B"  (112  x 60   mm outer, 31 mm deep)
+//          "1590BB" (119  x 94   mm outer, 34 mm deep)
+//          "125B"   (121  x 66   mm outer, 39 mm deep)
+//          "custom" - enter your own dimensions in custom_board_width / custom_board_depth
 preset = "custom"; // [1590A, 1590B, 1590BB, 125B, custom]
 
-// Wall thickness of Hammond enclosure — subtract from outer dimensions to get inner space
+// Wall thickness of Hammond enclosure - subtract from outer dimensions to get inner space
 // Typical die-cast boxes: 2.5mm per side = 5mm total reduction
-enclosure_wall_thick = 2.5;  // mm — adjust if your enclosure has different wall thickness
+enclosure_wall_thick = 2.5;  // mm - adjust if your enclosure has different wall thickness
 
-// Board footprint — edit these only when preset = "custom":
+// Board footprint - edit these only when preset = "custom":
 custom_board_width = 80;  // mm
 custom_board_depth = 60;  // mm
 
@@ -31,12 +31,12 @@ outer_board_depth = preset == "1590A"  ?  38.5 :
                     preset == "125B"   ?  66   :
                     custom_board_depth;
 
-// Subtract wall thickness on both sides (2 × wall_thick) to get dimensions that fit inside
+// Subtract wall thickness on both sides (2x wall_thick) to get dimensions that fit inside
 is_custom = preset == "custom";
 board_width = is_custom ? outer_board_width : (outer_board_width - 2*enclosure_wall_thick);
 board_depth = is_custom ? outer_board_depth : (outer_board_depth - 2*enclosure_wall_thick);
 
-// Enclosure interior height — informational reference, not used in board geometry.
+// Enclosure interior height - informational reference, not used in board geometry.
 // Tells you how much vertical clearance the chosen Hammond box provides.
 enclosure_height = preset == "1590A"  ? 31 :
                    preset == "1590B"  ? 31 :
@@ -44,23 +44,23 @@ enclosure_height = preset == "1590A"  ? 31 :
                    preset == "125B"   ? 39 :
                    0;   // 0 = no preset selected
 
-board_thick  = 2.5;   // mm — thicker = more grip, harder to insert (2.0mm for lighter builds)
+board_thick  = 2.5;   // mm - thicker = more grip, harder to insert (2.0mm for lighter builds)
 
-hole_dia     = 1.2;   // mm — tuning per material and printer:
-                      // TPU: 0.85mm | PETG: 1.2–2.0mm | PLA: 1.0–1.2mm
+hole_dia     = 1.2;   // mm - tuning per material and printer:
+                      // TPU: 0.85mm | PETG: 1.2-2.0mm | PLA: 1.0-1.2mm
                       // Larger holes prevent tight insertion and allow easy lead bending
-pitch        = 2.54;  // mm — standard component pitch, don't change unless needed
+pitch        = 2.54;  // mm - standard component pitch, don't change unless needed
 
-margin       = 5;     // mm — border around the hole grid
+margin       = 5;     // mm - border around the hole grid
 
-corner_radius = 5;    // mm — round the board corners to fit rounded Hammond enclosures
+corner_radius = 5;    // mm - round the board corners to fit rounded Hammond enclosures
 
 // --- Mounting screw holes ---
 add_screw_holes    = true;
-screw_dia          = 3.2;  // mm — M3 clearance
-screw_margin       = 4;    // mm — distance from corner to screw center
-countersink_dia    = 6.0;  // mm — M3 flat head countersink diameter
-countersink_depth  = 1.5;  // mm — depth of countersink recess
+screw_dia          = 3.2;  // mm - M3 clearance
+screw_margin       = 4;    // mm - distance from corner to screw center
+countersink_dia    = 6.0;  // mm - M3 flat head countersink diameter
+countersink_depth  = 1.5;  // mm - depth of countersink recess
 
 // ============================================
 // Derived values (don't edit)
@@ -102,7 +102,7 @@ difference() {
             cylinder(
                 h = board_thick + 0.2,
                 d = hole_dia,
-                $fn = 12   // low poly cylinder — fine at this scale, faster preview
+                $fn = 12   // low poly cylinder - fine at this scale, faster preview
             );
         }
     }
