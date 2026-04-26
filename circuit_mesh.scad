@@ -53,6 +53,8 @@ pitch        = 2.54;  // mm — standard component pitch, don't change unless ne
 
 margin       = 5;     // mm — border around the hole grid
 
+corner_radius = 5;    // mm — round the board corners to fit rounded Hammond enclosures
+
 // --- Mounting screw holes ---
 add_screw_holes    = true;
 screw_dia          = 3.2;  // mm — M3 clearance
@@ -81,8 +83,13 @@ screw_positions = [
 // Build it
 
 difference() {
-    // Base plate
-    cube([board_width, board_depth, board_thick]);
+    // Base plate with rounded corners
+    linear_extrude(board_thick) {
+        offset(r=corner_radius, $fn=20) {
+            translate([corner_radius, corner_radius])
+                square([board_width - 2*corner_radius, board_depth - 2*corner_radius]);
+        }
+    }
 
     // Grid of holes
     for (x = [0 : cols-1]) {

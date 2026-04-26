@@ -47,6 +47,7 @@ Open `circuit_mesh.scad` in [OpenSCAD](https://openscad.org) and adjust the valu
 | `hole_dia` | 1.2mm | Lead hole diameter — tune per material |
 | `pitch` | 2.54mm | Hole spacing (standard component pitch) |
 | `margin` | 5mm | Border around the hole grid |
+| `corner_radius` | 5mm | Radius of rounded corners to fit Hammond enclosure corners |
 | `add_screw_holes` | true | Corner M3 mounting holes with countersink — set to false to disable |
 | `screw_margin` | 4mm | Distance from board corner to screw center |
 | `countersink_dia` | 6.0mm | M3 flat head countersink diameter |
